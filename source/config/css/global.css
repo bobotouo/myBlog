@@ -1,0 +1,9 @@
+/* 页脚透明 */
+#footer {
+	/* 以下代表透明度为0.7 */
+	background: rgba(255,255,255, .0);
+}
+
+#footer:before {
+    background-color: rgba(255,255,255, .0);;
+}

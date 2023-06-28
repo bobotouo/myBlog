@@ -11,7 +11,6 @@ menu:
   时间轴: /archives/ || fas fa-archive
   分类: /categories/ || fas fa-folder-open
   娱乐||fa fa-heartbeat:
-    Music: /music/ || fas fa-music
     Photos: /Gallery/ || fas fa-images
     Movies: /movies/ || fas fa-video
   关于: /about/ || fas fa-heart
@@ -23,9 +22,6 @@ social:
   fab fa-github: https://github.com/bobotouo || Github || "#hdhfbb"
   fas fa-envelope: mailto:676610503@qq.com || Email || "#000000"
     
-
-footer:
-  custom_text: 来了呀, 老铁😘
 
 aside:
   enable: true
@@ -87,10 +83,13 @@ subtitle:
   loop: true # source 调用第三方服务# 
   source: false
   sub: 
-    - 这不是我要得到的结果,结果
+    - 你看那个人,像不像一条狗
 
 #查看图片开启
 fancybox:  true
+
+
+background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201805%2F29%2F20180529184141_iW5tn.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1690527026&t=3c8fed8d321f6c676eeb069685aebe80)
 
 
 # Pjax [Beta] 
@@ -127,8 +126,19 @@ aplayerInject:
   per_page: true
 
 
+waline:
+  serverURL: https://bobotouo.github.io/myBlog
+  pageview: false
+
+
+
+
+favicon: /images/favicon32.ico
+
+
 inject:
   head:
+    - <link rel="stylesheet" href="/config/css/global.css">
   bottom:
     - <div class="aplayer no-destroy" data-id="001bGqB01cFW8z" data-server="tencent" data-type="song" data-fixed="true" data-autoplay="true" data-preload="auto"> </div>
     - <script src="/config/js/global.js"></script>

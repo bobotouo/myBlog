@@ -5,7 +5,7 @@
 # Site
 title: 阿波blog
 subtitle: ''
-description: '好玩,好用,blog,收集'
+description: '寂寞才说爱,为何你要那么坏'
 keywords: '爱好,收集,记录,旅游,游戏,技术,发牢骚,'
 author: '波波头'
 language: zh-CN
@@ -13,7 +13,8 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://bobotouo.github.io/myBlog/
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -102,7 +103,10 @@ theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: 'git'
+  repo: https://github.com/bobotouo/myBlog
+  branch: gh-pages
+
 
 aplayer:
   meting: true

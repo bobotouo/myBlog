@@ -1,0 +1,134 @@
+nav: 
+  logo: '/images/ikun.png'
+  display_title: true
+  fixed: false
+
+avatar:
+  img: /images/avatar.gif
+
+menu:
+  首页: / || fas fa-home
+  时间轴: /archives/ || fas fa-archive
+  分类: /categories/ || fas fa-folder-open
+  娱乐||fa fa-heartbeat:
+    Music: /music/ || fas fa-music
+    Photos: /Gallery/ || fas fa-images
+    Movies: /movies/ || fas fa-video
+  关于: /about/ || fas fa-heart
+   
+highlight_theme: mac light
+highlight_copy: true
+
+social:
+  fab fa-github: https://github.com/bobotouo || Github || "#hdhfbb"
+  fas fa-envelope: mailto:676610503@qq.com || Email || "#000000"
+    
+
+footer:
+  custom_text: 来了呀, 老铁😘
+
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true # display on mobile
+  position: left # left or right
+  display:
+    archive: true
+    tag: false
+    category: true
+
+
+busuanzi:
+  site_uv: true
+  site_pv: true
+  page_pv: true
+
+# 最新评论
+newest_comments:
+  enable: true
+  limit: 5
+  storage: 10 # unit: mins, save data to localStorage
+  avatar: true
+
+readmode: true
+index_top_img_height: 500px
+
+canvas_nest: 
+  enable: true 
+  color: '#eee'
+
+footer_bg: rgba(0,0,0,0)
+
+# Typewriter Effect (打字效果) 
+# https://github.com/disjukr/activate-power-mode 
+activate_power_mode: 
+  enable: true 
+  colorful: true
+
+# 点击出现爱心
+click_heart: 
+  enable: true 
+  mobile: false
+
+# 美化页面显示
+beautify: 
+  enable: true 
+  field: site # site/post title-prefix-icon: '\f0c1' title-prefix-icon-color: "#F47466"
+
+# 主页subtitle 
+subtitle: 
+  enable: true 
+  # Typewriter Effect (打字效果) 
+  effect: true 
+  startDelay: 300 # time before typing starts in milliseconds
+  typeSpeed: 150 # type speed in milliseconds 
+  backSpeed: 50 # backspacing speed in milliseconds
+  loop: true # source 调用第三方服务# 
+  source: false
+  sub: 
+    - 这不是我要得到的结果,结果
+
+#查看图片开启
+fancybox:  true
+
+
+# Pjax [Beta] 
+# It may contain bugs and unstable, give feedback when you find the bugs. 
+# https://github.com/MoOx/pjax 
+pjax:  
+  enable: true
+
+
+# Snackbar 弹窗
+# https://github.com/polonel/SnackBar 
+# position 弹窗位置
+# 可选top-left / top-center / top-right / bottom-left / bottom-center / bottom-right 
+snackbar: 
+  enable: true 
+  position: top-right
+  bg_light: '#49b1f5' #light mode时弹窗背景
+  bg_dark: '#2d3035' #dark mode时弹窗背景
+
+instantpage: true
+
+# Insert a space between Chinese character and English character (中英文之间添加空格) 
+pangu: 
+  enable: true 
+  field: site # site/post
+
+
+default_top_img: https://img-baofun.zhhainiao.com/fs/bfec7f6af878a00db3eca7706ae983aa.jpg
+
+
+# Inject the css and script (aplayer/meting)
+aplayerInject:
+  enable: true
+  per_page: true
+
+
+inject:
+  head:
+  bottom:
+    - <div class="aplayer no-destroy" data-id="001bGqB01cFW8z" data-server="tencent" data-type="song" data-fixed="true" data-autoplay="true" data-preload="auto"> </div>
+    - <script src="/config/js/global.js"></script>

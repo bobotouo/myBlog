@@ -1,0 +1,15 @@
+- class_name: 我的说说
+  essay_list:
+    - content: 如何搞钱,带带老弟,🙏🏻
+      date: 2023-10-12 12:07:23
+    - content: 要是每天能躺就好了
+      images: ['https://z1.ax1x.com/2023/10/12/piScOCn.jpg',"https://z1.ax1x.com/2023/10/12/piSgfIJ.jpg"]
+      date: 2023-05-03 15:07:23
+    - content: 林克你!😋
+      images: ["https://z1.ax1x.com/2023/10/12/piSgA81.jpg"]
+      date: 2023-04-13 20:33:23
+    - content: life is meaningless
+      music:
+        server: netease
+        id: 1403318151
+      date: 2022-02-14 19:07:23

@@ -8,19 +8,21 @@ avatar:
 
 menu:
   首页: / || fas fa-home
-  时间轴: /archives/ || fas fa-archive
-  分类: /categories/ || fas fa-folder-open
-  娱乐||fa fa-heartbeat:
+  时间轴: /archives/ || fa-solid fa-calendar-days
+  分类: /categories/ || fa-solid fa-tags
+  娱乐||fa-solid fa-face-grin-tongue-wink:
     Photos: /Gallery/ || fas fa-images
     Movies: /movies/ || fas fa-video
-  关于: /about/ || fas fa-heart
+  留言板: /messageboard/ || fa-solid fa-comment 
+  关于: /about/ || fa-solid fa-umbrella
    
 highlight_theme: mac light
 highlight_copy: true
 
 social:
+  fab fa-qq: tencent://message/?uin=676610503 || QQ || "#hdhfbb"
   fab fa-github: https://github.com/bobotouo || Github || "#hdhfbb"
-  fas fa-envelope: mailto:676610503@qq.com || Email || "#000000"
+  fas fa-envelope: mailto:676610503@qq.com || Email || "#hdhfbb"
     
 
 aside:
@@ -29,6 +31,16 @@ aside:
   button: true
   mobile: true # display on mobile
   position: left # left or right
+  card_author:
+    enable: true
+    button:
+      enable: true
+      icon: fab fa-github
+      text: leave msg
+      link: https://github.com/username
+  card_announcement:        #公告
+    enable: true
+    content: 难受,香菇
   display:
     archive: true
     tag: false
@@ -48,7 +60,6 @@ newest_comments:
   avatar: true
 
 readmode: true
-index_top_img_height: 500px
 
 canvas_nest: 
   enable: true 
@@ -61,6 +72,8 @@ footer_bg: rgba(0,0,0,0)
 activate_power_mode: 
   enable: true 
   colorful: true
+  shake: false #  open shake (抖动特效)
+  mobile: false
 
 # 点击出现爱心
 click_heart: 
@@ -126,11 +139,16 @@ aplayerInject:
   per_page: true
 
 
+comments:
+  use: Waline
+  text: true # Display the comment name next to the 
+  count: true # Display comment count in top_img
+  card_post_count: false # Display comment count in Home Page
+
+
 waline:
-  serverURL: https://bobotouo.github.io/myBlog
+  serverURL: https://heartfelt-clafoutis-ff7eb7.netlify.app/.netlify/functions/comment
   pageview: false
-
-
 
 
 favicon: /images/favicon32.ico
@@ -138,7 +156,13 @@ favicon: /images/favicon32.ico
 
 inject:
   head:
-    - <link rel="stylesheet" href="/config/css/global.css">
+    - <link rel="stylesheet" href="/myBlog/config/css/global.css">
+		- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/bb/showbb_in_index.css">
+    - <script src="/myBlog/config/js/waterfall.min.js"></script>
+    - <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    - <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.min.js"></script>
   bottom:
-    - <div class="aplayer no-destroy" data-id="001bGqB01cFW8z" data-server="tencent" data-type="song" data-fixed="true" data-autoplay="true" data-preload="auto"> </div>
-    - <script src="/config/js/global.js"></script>
+    - <div class="aplayer no-destroy" data-id="2084366052" data-server="netease" data-type="song" data-fixed="true" data-lrc-type="1" data-autoplay="true" data-preload="auto"> </div>
+    - <script src="/myBlog/config/js/global.js"></script>
+
+

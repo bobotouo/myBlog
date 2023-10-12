@@ -32,9 +32,18 @@
 /* bb哔哔 */
 /* bb样式 */
 
+
+#zbuz{
+    background-color: #fff;
+    border-radius: 8px;
+    transition: all 0.2s;
+    padding: 15px 10px;
+}
+
+
 #bber .timeline #waterfall {
     opacity: 0;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 #bber .timeline #waterfall.show {
@@ -43,7 +52,7 @@
 
 #bber .timeline ul li.item {
     position: relative;
-    width: 32%;
+    width: 30%;
     border: 1px solid #e3e8f7;
     border-radius: 12px;
     padding: 1rem;
@@ -286,20 +295,20 @@
 
 #bber .bber-content-img img {
     object-fit: cover;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     border-radius: 12px;
 }
 
 #bber .bber-content-img {
     height: 100px;
     width: 100px;
-    margin: auto;
+    margin-right: 10px;
     margin-top: 0.2rem;
     margin-bottom: 0.3rem;
     margin-left: 0;
     border-radius: 12px;
     overflow: hidden;
-    display: flex;
     position: relative;
 }
 
@@ -348,12 +357,62 @@
 } 
   
 .bber-images{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-gap: 8px 8px;
+    grid-template-columns: repeat(auto-fill, 100px);
+    width: 100%;
 }
 
 .vvdeo{
     width: 100%;
     height: 100%;
     border-radius: 12px;
+}
+
+.author-top-tips{
+    /* animation: showup 4s linear forwards;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    font-family:cursive;
+    text-align: center;
+    animation-iteration-count: infinite; */
+    font-family: cursive;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1;
+    animation: letterspacing 5s infinite alternate ease-in-out;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    letter-spacing: -17px;
+}
+
+.author-content-item-tips{
+    display: flex;
+    justify-content: center;
+    filter: contrast(35);
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+}
+@keyframes letterspacing {
+    0% {
+        filter: blur(4px);
+    }
+
+    50% {
+        letter-spacing: 3px;
+        filter: blur(1px);
+    }
+
+    100% {
+        letter-spacing: 8px;
+        filter: blur(0);
+    }
 }

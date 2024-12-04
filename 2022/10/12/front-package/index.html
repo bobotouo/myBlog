@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>前端常见构建工具(webpack、rollup、vite) | 阿波blog</title><meta name="author" content="波波头"><meta name="copyright" content="波波头"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是构建 构建工具，最终的目标都是转化开发环境的代码为生产环境中可用的代码。在不同的前端项目中使用的技术栈是不一样的。不同的框架、不同的样式处理方案等，为了生产出生产环境可用的 JS、CSS，构建工具实现了诸如：代码转换、代码压缩、tree shaking、code spliting 等。 Webpack 五个核心概念 Entry 指定 webpack 打包的入口 Output 指定 webpa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端常见构建工具(webpack、rollup、vite)">
+<meta property="og:url" content="https://bobotouo.github.io/myBlog/2022/10/12/front-package/index.html">
+<meta property="og:site_name" content="阿波blog">
+<meta property="og:description" content="什么是构建 构建工具，最终的目标都是转化开发环境的代码为生产环境中可用的代码。在不同的前端项目中使用的技术栈是不一样的。不同的框架、不同的样式处理方案等，为了生产出生产环境可用的 JS、CSS，构建工具实现了诸如：代码转换、代码压缩、tree shaking、code spliting 等。 Webpack 五个核心概念 Entry 指定 webpack 打包的入口 Output 指定 webpa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bobotouo.github.io/myBlog/images/avatar.gif">
+<meta property="article:published_time" content="2022-10-12T02:22:04.000Z">
+<meta property="article:modified_time" content="2024-03-11T07:44:36.545Z">
+<meta property="article:author" content="波波头">
+<meta property="article:tag" content="爱好,收集,记录,旅游,游戏,技术,发牢骚,">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bobotouo.github.io/myBlog/images/avatar.gif"><link rel="shortcut icon" href="/myBlog/images/favicon32.ico"><link rel="canonical" href="https://bobotouo.github.io/myBlog/2022/10/12/front-package/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/myBlog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"top-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '前端常见构建工具(webpack、rollup、vite)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-11 15:44:36'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/myBlog/config/css/global.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/bb/showbb_in_index.css"><script src="/myBlog/config/js/waterfall.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.min.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myBlog/images/avatar.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/myBlog/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/myBlog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fa-solid fa-calendar-days"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fa-solid fa-tags"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-face-grin-tongue-wink"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/myBlog/Gallery/"><i class="fa-fw fas fa-images"></i><span> Photos</span></a></li><li><a class="site-page child" href="/myBlog/movies/"><i class="fa-fw fas fa-video"></i><span> Movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/myBlog/messageboard/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/about/"><i class="fa-fw fa-solid fa-umbrella"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img-baofun.zhhainiao.com/fs/bfec7f6af878a00db3eca7706ae983aa.jpg')"><nav id="nav"><span id="blog-info"><a href="/myBlog/" title="阿波blog"><img class="site-icon" src="/myBlog/images/ikun.png"/><span class="site-name">阿波blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fa-solid fa-calendar-days"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fa-solid fa-tags"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-face-grin-tongue-wink"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/myBlog/Gallery/"><i class="fa-fw fas fa-images"></i><span> Photos</span></a></li><li><a class="site-page child" href="/myBlog/movies/"><i class="fa-fw fas fa-video"></i><span> Movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/myBlog/messageboard/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/about/"><i class="fa-fw fa-solid fa-umbrella"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端常见构建工具(webpack、rollup、vite)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-12T02:22:04.000Z" title="发表于 2022-10-12 10:22:04">2022-10-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-11T07:44:36.545Z" title="更新于 2024-03-11 15:44:36">2024-03-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端常见构建工具(webpack、rollup、vite)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/myBlog/2022/10/12/front-package/#post-comment"><span class="waline-comment-count" data-path="/myBlog/2022/10/12/front-package/"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="什么是构建"><a href="#什么是构建" class="headerlink" title="什么是构建"></a>什么是构建</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/lP9iauFI73z9XuYpZtIQvE2GAusF0gnAJNbMMv15fibI7nv0AK6GUKibMQ7H4EicHmUYacdWtedD3OZLvYs0AdVDPg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>构建工具，最终的目标都是转化开发环境的代码为生产环境中可用的代码。在不同的前端项目中使用的技术栈是不一样的。不同的框架、不同的样式处理方案等，为了生产出生产环境可用的 JS、CSS，构建工具实现了诸如：代码转换、代码压缩、tree shaking、code spliting 等。</p>
+<h2 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h2><p> <strong>五个核心概念</strong></p>
+<h4 id="Entry"><a href="#Entry" class="headerlink" title="Entry"></a>Entry</h4><p> 指定 webpack 打包的入口</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p> 指定 webpack 打包资源的存放位置</p>
+<h4 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h4><p> 让 webpack 能够处理非 JavaScript 文件,  用于对模块的代码转换，如将 Typescript 转为 Javascript、将 less、sass 转为 css、将.vue、.tsx 等文件转为 js、css 等。</p>
+<h4 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h4><p>可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩， 一直到重新定义环境中的变量等, 解决 loader 无法实现的其他事</p>
+<h4 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h4><p>指定 webpack 当前的构建环境类型。设置mode可以自动触发webpack内置的函数，达到优化的效果</p>
+<h3 id="Loader和Plugin的区别"><a href="#Loader和Plugin的区别" class="headerlink" title="Loader和Plugin的区别"></a>Loader和Plugin的区别</h3><p><code>Loader</code> 模块导出一个运行在Node上的JavaScript函数。返回转换后的结果。因为 webpack 只认识 JS，所以 loader 相当于它的翻译官，对资源做转译的预处理工作。<br><code>Plugin</code> 是一个基于事件流的插件，它是一个具有 apply 方法的 JavaScript 对象。apply 方法会被 webpack compiler 调用，并且在整个编译生命周期都可以访问 compiler 对象。  </p>
+<p><strong>配置</strong><br>根据根目录里webpack.config.js<br>如以下配置示例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&#x27;webpack&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">HotModuleReplacementPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;webpack&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">VueLoaderPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;vue-loader&#x27;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;./build&#x27;</span>),</span><br><span class="line">        <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/.js$/</span>,</span><br><span class="line">                <span class="attr">exclude</span>: <span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">                <span class="attr">use</span>: &#123;</span><br><span class="line">                    <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">                    <span class="attr">options</span>: &#123;</span><br><span class="line">                        <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>],</span><br><span class="line">                    &#125;,</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/.vue$/</span>,</span><br><span class="line">                <span class="attr">use</span>: &#123;</span><br><span class="line">                    <span class="attr">loader</span>: <span class="string">&#x27;vue-loader&#x27;</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">                <span class="attr">use</span>: [<span class="string">&#x27;vue-style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>],</span><br><span class="line">            &#125;,</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">resolve</span>: &#123;</span><br><span class="line">        <span class="attr">alias</span>: &#123;</span><br><span class="line">            <span class="attr">vue</span>: <span class="string">&#x27;vue/dist/vue.js&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">HotModuleReplacementPlugin</span>(),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>(),</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">devServer</span>:&#123;</span><br><span class="line">        <span class="attr">port</span>:<span class="number">3000</span>,<span class="comment">// 设置端口号</span></span><br><span class="line">        <span class="attr">host</span>:<span class="string">&quot;&quot;</span>,</span><br><span class="line">        <span class="attr">open</span>:<span class="literal">true</span>,<span class="comment">// 自动在浏览器中打开页面</span></span><br><span class="line">        <span class="attr">compress</span>:<span class="literal">true</span>,<span class="comment">// false关闭gzip压</span></span><br><span class="line">        <span class="attr">hot</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>编写loader和plugin 参考 <a target="_blank" rel="noopener" href="https://webpack.docschina.org/contribute/writing-a-plugin/#creating-a-plugin">webpack文档</a></p>
+<h2 id="Rollup"><a href="#Rollup" class="headerlink" title="Rollup"></a>Rollup</h2><p><strong>核心概念</strong></p>
+<ul>
+<li>入口文件<br>  入口文件是你的应用程序或库的主文件，是 Rollup 开始构建的起点。入口文件指定了依赖关系图的根节点。</li>
+<li>依赖关系<br>  依赖关系图是 Rollup 根据入口文件和所有相关依赖自动构建的一张图表。它了各个模块之间的依赖关系，包括每个模块依赖的其他模块和导出的内容。</li>
+<li>模块<br>  模是代码的单独单元，可以是一个文件或一个文件中的一个部分。每个模块都有自己的作域，并且可以导入和导出变量、函数和类等。</li>
+<li>导入和导出<br>  通过导入和导出语法，模块可以与其他模块进行交互。导入语法允许模块使用其他模块中导出的内容，而导出语法允许模块将自己的内容暴露给其他模块使用。</li>
+<li>Bundle<br>  Bundle 是 Rollup 构建输出的最终文件。它包含所有被捆绑在一起的模块和它们的依赖关系。Bundle 可以是单个 JavaScript 文件，也可以是多个文件组成的目录。</li>
+<li>模块格式<br>  模块格式定义了将模块打包到 Bundle 中的方式。常见的模块格式包括 ES 模块（ESM），CommonJS 模块（CJS），AMD 模块以及全局变量 IIFE）等。</li>
+<li>插件<br>  插件是 Rollup 的扩展，用于在构建过程中自定义和增强功能。它们可以在各个阶段进行代码转换、优化、添加附加功能和处理其他任务。通过使用插件，你可以根据自己的特定需求来扩展和定制 Rollup 的行为。</li>
+<li>Tree Shaking<br>  Tree Shaking 是 Rollup 的一个重要特性，它能够通过静态分析准确识别未使用的代码，并将其从 Bundle 中删除。这样可以减小 Bundle 的大小，优化应用的性能。</li>
+</ul>
+<p><strong>配置</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">&#x27;rollup-plugin-babel&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> serve <span class="keyword">from</span> <span class="string">&#x27;rollup-plugin-serve&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="comment">/* 设置打包的入口文件 */</span></span><br><span class="line">    <span class="attr">input</span>: <span class="string">&quot;./src/index.js&quot;</span>,</span><br><span class="line">    <span class="comment">/* 输出配置项 */</span></span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="comment">/* 配置出口路径 */</span></span><br><span class="line">        <span class="attr">file</span>: <span class="string">&quot;dist/umd/xxx.js&quot;</span>,</span><br><span class="line">        <span class="comment">/* 统一模块规范 */</span></span><br><span class="line">        <span class="attr">format</span>: <span class="string">&quot;umd&quot;</span>,</span><br><span class="line">        <span class="comment">/* es6-&gt;es5 开启源码调试(显示报错位置) */</span></span><br><span class="line">        <span class="attr">sourcemap</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/* 使用插件 */</span></span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">        <span class="title function_">babel</span>(&#123;</span><br><span class="line">            <span class="attr">exclude</span>: <span class="string">&quot;node_modules/**&quot;</span></span><br><span class="line">        &#125;),</span><br><span class="line">        process.<span class="property">env</span>.<span class="property">ENV</span> === <span class="string">&#x27;development&#x27;</span> ? <span class="title function_">serve</span>(&#123;</span><br><span class="line">            <span class="attr">open</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="comment">/* 默认打开的 HTML 文件路径 */</span></span><br><span class="line">            <span class="attr">openPage</span>: <span class="string">&quot;/public/index.html&quot;</span>,</span><br><span class="line">            <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">            <span class="attr">contentBase</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125;) : <span class="literal">null</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vite"><a href="#vite" class="headerlink" title="vite"></a>vite</h2><p><strong>配置 vite.config.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">        root：默认process.<span class="title function_">cwd</span>(),	index.<span class="property">html</span>所在的位置,绝对位置或相对位置</span><br><span class="line">        base：开发或生产环境服务的公共基础路径</span><br><span class="line">                绝对 <span class="variable constant_">URL</span> 路径名，例如 /foo/</span><br><span class="line">                完整的 <span class="variable constant_">URL</span>，例如 <span class="attr">https</span>:<span class="comment">//foo.com/</span></span><br><span class="line">                空字符串或 ./（用于开发环境）</span><br><span class="line">                通过命令指定：vite build --base=<span class="regexp">/my/</span>public/path/</span><br><span class="line">                代码中获取base：<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">env</span>.<span class="property">BASE_URL</span>全局变量在代码中使用，原样出现(例如<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">env</span>[<span class="string">&#x27;BASE_URL&#x27;</span>]是无效的)</span><br><span class="line">        mode：将会把serve和build时的模式都覆盖掉。也可以通过命令行 --mode 选项来重写</span><br><span class="line">                <span class="string">&#x27;development&#x27;</span>（serve）</span><br><span class="line">                <span class="string">&#x27;production&#x27;</span>（build）</span><br><span class="line">        define：定义全局常量替换方式。其中每项在开发环境下会被定义在全局，而在构建时被静态替换</span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="attr">__DEV__</span>: <span class="string">&#x27;dev&#x27;</span>,</span><br><span class="line">                &#125;</span><br><span class="line">        plugins：[]	插件数组</span><br><span class="line">        publicDir：作为静态资源服务的文件夹。该目录中的文件在开发期间在 / 处提供，并在构建期间复制到 outDir 的根目录，并且始终按原样提供或复制而无需进行转换。</span><br><span class="line">        该值可以是文件系统的绝对路径，也可以是相对于项目的根目录的相对路径。</span><br><span class="line">                默认<span class="string">&#x27;public&#x27;</span></span><br><span class="line">        cacheDir：存储缓存文件的目录。此目录下会存储预打包的依赖项或 vite 生成的某些缓存文件，使用缓存可以提高性能。</span><br><span class="line">        如需重新生成缓存文件，你可以使用 --force 命令行选项或手动删除目录。此选项的值可以是文件的绝对路径，也可以是以项目根目录为基准的相对路径。当没有检测到 package.<span class="property">json</span> 时，则默认为 .<span class="property">vite</span>。</span><br><span class="line">                默认<span class="string">&quot;node_modules/.vite&quot;</span></span><br><span class="line">        assetsInclude：解析额外的定义内置type以外的静态导入资源</span><br><span class="line">                [<span class="string">&#x27;**/*.gltf&#x27;</span>]</span><br><span class="line">        logLevel：调整控制台输出的级别，默认为 <span class="string">&#x27;info&#x27;</span></span><br><span class="line">                <span class="string">&#x27;info&#x27;</span> | <span class="string">&#x27;warn&#x27;</span> | <span class="string">&#x27;error&#x27;</span> | <span class="string">&#x27;silent&#x27;</span></span><br><span class="line">        clearScreen：设为 <span class="literal">false</span> 可以避免 <span class="title class_">Vite</span> 清屏而错过在终端中打印某些关键信息。命令行模式下可以通过 --clearScreen <span class="literal">false</span> 设置。</span><br><span class="line">                默认：<span class="literal">true</span></span><br><span class="line">        envDir：用于加载 .<span class="property">env</span> 文件的目录。可以是一个绝对路径，也可以是相对于项目根的路径</span><br><span class="line">                默认：根路径</span><br><span class="line">        envPrefix：自定义环境变量前缀，以 envPrefix 开头的环境变量会通过 <span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">env</span> 暴露在你的客户端源码中</span><br><span class="line">                默认：<span class="variable constant_">VITE_</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 解析相关</span></span><br><span class="line">        <span class="attr">resolve</span>:&#123;</span><br><span class="line">                <span class="attr">alias</span>:路径别名</span><br><span class="line">                        &#123;</span><br><span class="line">                                <span class="string">&quot;@&quot;</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;src&quot;</span>),</span><br><span class="line">                        &#125;</span><br><span class="line">                        或</span><br><span class="line">                        [&#123;</span><br><span class="line">                                <span class="attr">find</span>: <span class="string">&#x27;@&#x27;</span>,  字符串｜正则</span><br><span class="line">                        <span class="attr">replacement</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;src&#x27;</span>)</span><br><span class="line">                        &#125;]</span><br><span class="line">                <span class="attr">dedupe</span>:使用此选项强制 <span class="title class_">Vite</span> 始终将列出的依赖项解析为同一副本</span><br><span class="line">                        比如当安装了两个不同版本的依赖，如vue2和vue3，通过这个声明最终引入的版本</span><br><span class="line">                        []</span><br><span class="line">                <span class="attr">condition</span>:情景导出</span><br><span class="line">                        [&#123;</span><br><span class="line">                          <span class="string">&quot;exports&quot;</span>: &#123;</span><br><span class="line">                            <span class="string">&quot;.&quot;</span>: &#123;</span><br><span class="line">                              <span class="string">&quot;import&quot;</span>: <span class="string">&quot;./index.esm.js&quot;</span>,</span><br><span class="line">                              <span class="string">&quot;require&quot;</span>: <span class="string">&quot;./index.cjs.js&quot;</span></span><br><span class="line">                            &#125;</span><br><span class="line">                          &#125;</span><br><span class="line">                        &#125;]</span><br><span class="line">                mainFields：根据package.<span class="property">json</span>中的字段，在不同环境中导入库的入口文件位置</span><br><span class="line">                        <span class="keyword">import</span>引入的文件对应<span class="variable language_">module</span>中的路径</span><br><span class="line">                        <span class="built_in">require</span>引入的文件对应main中的路径</span><br><span class="line">                        默认：[<span class="string">&#x27;module&#x27;</span>, <span class="string">&#x27;jsnext:main&#x27;</span>, <span class="string">&#x27;jsnext&#x27;</span>,<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line">                extensions导入时想要省略的扩展名列表。不建议忽略自定义导入类型的扩展名（例如：.<span class="property">vue</span>），因为它会影响 <span class="variable constant_">IDE</span> 和类型支持</span><br><span class="line">                        默认：[<span class="string">&#x27;.mjs&#x27;</span>, <span class="string">&#x27;.js&#x27;</span>, <span class="string">&#x27;.ts&#x27;</span>, <span class="string">&#x27;.jsx&#x27;</span>, <span class="string">&#x27;.tsx&#x27;</span>, <span class="string">&#x27;.json&#x27;</span>]</span><br><span class="line">                preserveSymlinks：启用此选项会使 <span class="title class_">Vite</span> 通过原始文件路径（即不跟随符号链接的路径）而不是真正的文件路径（即跟随符号链接后的路径）确定文件身份</span><br><span class="line">                        默认：<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// css相关</span></span><br><span class="line">        css：&#123;</span><br><span class="line">                <span class="attr">modules</span>:配置 <span class="variable constant_">CSS</span> modules 的行为。选项将被传递给 postcss-modules。</span><br><span class="line">                <span class="attr">postcss</span>:内联的 <span class="title class_">PostCSS</span> 配置（格式同 postcss.<span class="property">config</span>.<span class="property">js</span>），或者一个（默认基于项目根目录的）自定义的 <span class="title class_">PostCSS</span> 配置路径</span><br><span class="line">                <span class="attr">preprocessorOptions</span>:指定传递给 <span class="variable constant_">CSS</span> 预处理器的选项。</span><br><span class="line">                        &#123;</span><br><span class="line">                      <span class="attr">scss</span>: &#123;</span><br><span class="line">                        <span class="attr">additionalData</span>: <span class="string">`$injectedColor: orange;`</span></span><br><span class="line">                      &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// JSON相关</span></span><br><span class="line">        json：&#123;</span><br><span class="line">                namedExports：是否支持从 .<span class="property">json</span> 文件中进行按名导入。</span><br><span class="line">                        默认：<span class="literal">true</span></span><br><span class="line">                stringify：若设置为 <span class="literal">true</span>，导入的 <span class="title class_">JSON</span> 会被转换为 <span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&quot;...&quot;</span>)</span><br><span class="line">                        默认：<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// esbuild相关</span></span><br><span class="line">        esbuild：&#123;</span><br><span class="line">            <span class="attr">jsxFactory</span>: <span class="string">&#x27;h&#x27;</span>,</span><br><span class="line">            <span class="attr">jsxFragment</span>: <span class="string">&#x27;Fragment&#x27;</span> 以上为自定义<span class="variable constant_">JSX</span></span><br><span class="line"></span><br><span class="line">            <span class="title class_">ESbuild</span>会被应用在 ts、jsx、tsx 文件，以下选项对要处理的文件类型进行配置</span><br><span class="line">            include：string | <span class="title class_">RegExp</span> | (string | <span class="title class_">RegExp</span>)[]</span><br><span class="line">            exclude：string | <span class="title class_">RegExp</span> | (string | <span class="title class_">RegExp</span>)[]</span><br><span class="line"></span><br><span class="line">            <span class="attr">jsxInject</span>:自动为每一个被 <span class="title class_">ESbuild</span> 转换的文件注入内容</span><br><span class="line">                <span class="string">`import React from &#x27;react&#x27;`</span> </span><br><span class="line">        &#125;			</span><br><span class="line"></span><br><span class="line">        <span class="comment">// server相关</span></span><br><span class="line">        server：&#123;</span><br><span class="line">                host：指定服务器应该监听哪个 <span class="variable constant_">IP</span> 地址， 如果将此设置为 <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> 或者 <span class="literal">true</span> 将监听所有地址，包括局域网和公网地址</span><br><span class="line">                        默认：<span class="string">&#x27;127.0.0.1&#x27;</span></span><br><span class="line">                        命令设置：--host <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> 或 --host</span><br><span class="line">                port：指定开发服务器端口。注意：如果端口已经被使用，<span class="title class_">Vite</span> 会自动尝试下一个可用的端口，所以这可能不是开发服务器最终监听的实际端口</span><br><span class="line">                        默认：<span class="number">3000</span></span><br><span class="line">                strictPort：设为<span class="literal">true</span>时若端口已被占用则会直接退出，而不是尝试下一个可用端口</span><br><span class="line">                        默认：<span class="literal">false</span></span><br><span class="line">                https：启用 <span class="variable constant_">TLS</span> + <span class="variable constant_">HTTP</span>/<span class="number">2</span>。注意：当 server.<span class="property">proxy</span> 选项 也被使用时，将会仅使用 <span class="variable constant_">TLS</span>。</span><br><span class="line">                        当为<span class="literal">true</span>：启用 <span class="variable constant_">TLS</span> + <span class="variable constant_">HTTP</span>/<span class="number">2</span>。注意：当 server.<span class="property">proxy</span> 选项 也被使用时，将会仅使用 <span class="variable constant_">TLS</span>。</span><br><span class="line">                        这个值也可以是一个传递给 https.<span class="title function_">createServer</span>() 的 选项对象</span><br><span class="line">                                <span class="attr">https</span>:<span class="comment">//nodejs.org/api/https.html#httpscreateserveroptions-requestlistener</span></span><br><span class="line">                open：在开发服务器启动时自动在浏览器中打开应用程序。</span><br><span class="line">                        <span class="string">&#x27;/docs/index.html&#x27;</span></span><br><span class="line">                        设置打开的浏览器：设置环境变量 process.<span class="property">env</span>.<span class="property">BROWSER</span>=<span class="string">&#x27;firefox&#x27;</span></span><br><span class="line">                        open其他配置：<span class="attr">https</span>:<span class="comment">//github.com/sindresorhus/open#app</span></span><br><span class="line">                proxy：服务器代理</span><br><span class="line">                        &#123;</span><br><span class="line">                                <span class="string">&#x27;/foo&#x27;</span>: <span class="string">&#x27;http://localhost:4567&#x27;</span>,	字符串简写写法</span><br><span class="line">                                <span class="string">&#x27;/api&#x27;</span>: &#123; 以 ^ 开头，将会被解释为正则，如：<span class="string">&#x27;^/fallback/.*&#x27;</span> </span><br><span class="line">                                <span class="attr">target</span>: <span class="string">&#x27;http://jsonplaceholder.typicode.com&#x27;</span>,</span><br><span class="line">                                <span class="attr">changeOrigin</span>: <span class="literal">true</span>,</span><br><span class="line">                                <span class="attr">rewrite</span>: <span class="function">(<span class="params">path</span>) =&gt;</span> path.<span class="title function_">replace</span>(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>),</span><br><span class="line">                                <span class="attr">configure</span>: <span class="function">(<span class="params">proxy, options</span>) =&gt;</span> &#123;</span><br><span class="line">                                  <span class="comment">// proxy 是 &#x27;http-proxy&#x27; 的实例</span></span><br><span class="line">                                &#125;						        </span><br><span class="line">                            &#125;,</span><br><span class="line">                      <span class="string">&#x27;/socket.io&#x27;</span>: &#123; 代理 websockets or socket.<span class="property">io</span></span><br><span class="line">                        <span class="attr">target</span>: <span class="string">&#x27;ws://localhost:3000&#x27;</span>,</span><br><span class="line">                        <span class="attr">ws</span>: <span class="literal">true</span></span><br><span class="line">                      &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                cors：为开发服务器配置 <span class="variable constant_">CORS</span>。默认启用并允许任何源</span><br><span class="line">                        传递一个 选项对象 来调整行为，<span class="attr">https</span>:<span class="comment">//github.com/expressjs/cors#configuration-options</span></span><br><span class="line">                        设置<span class="literal">false</span>表示禁用</span><br><span class="line">                force：依赖预构建</span><br><span class="line">                        设置为 <span class="literal">true</span> 强制使依赖预构建。</span><br><span class="line">                hmr：热更新相关</span><br><span class="line">                    <span class="literal">false</span>禁用</span><br><span class="line">                    &#123;</span><br><span class="line">                        protocol?: string,  协议</span><br><span class="line">                        host?: string, </span><br><span class="line">                        port?: number, </span><br><span class="line">                        path?: string, </span><br><span class="line">                        timeout?: number, </span><br><span class="line">                        overlay?: boolean, 为 <span class="literal">false</span> 可以禁用开发服务器错误的屏蔽</span><br><span class="line">                        clientPort?: number, 只在客户端的情况下覆盖端口，这允许你为 websocket 提供不同的端口，而并非在客户端代码中查找。</span><br><span class="line">                        如果需要在 dev-server 情况下使用 <span class="variable constant_">SSL</span> 代理，这非常有用。</span><br><span class="line">                        server?: <span class="title class_">Server</span>, 当使用 server.<span class="property">middlewareMode</span> 或 server.<span class="property">https</span> 时，你需将 server.<span class="property">hmr</span>.<span class="property">server</span> 指定为你 <span class="title function_">HTTP</span>(S) 的服务器，</span><br><span class="line">                        这将通过你的服务器来处理 <span class="variable constant_">HMR</span> 的安全连接请求。</span><br><span class="line">                        这在使用自签证书或想通过网络在某端口暴露 <span class="title class_">Vite</span> 的情况下，非常有用。</span><br><span class="line">                    &#125;</span><br><span class="line">                middlewareMode：以中间件模式创建 <span class="title class_">Vite</span> 服务器</span><br><span class="line">                        <span class="string">&#x27;ssr&#x27;</span> | <span class="string">&#x27;html&#x27;</span>	在<span class="variable constant_">SSR</span>中使用</span><br><span class="line">                fs.<span class="property">strict</span>：限制为工作区 root 路径以外的文件的访问</span><br><span class="line">                        默认：<span class="literal">true</span></span><br><span class="line">                fs.<span class="property">allow</span>：限制哪些文件可以通过 /@fs/ 路径提供服务，<span class="title class_">Vite</span> 将会搜索此根目录下潜在工作空间并作默认使用</span><br><span class="line">                fs.<span class="property">deny</span>：用于限制 <span class="title class_">Vite</span> 开发服务器提供敏感文件的黑名单。</span><br><span class="line">                        默认为 [<span class="string">&#x27;.env&#x27;</span>, <span class="string">&#x27;.env.*&#x27;</span>, <span class="string">&#x27;*.&#123;pem,crt&#125;&#x27;</span>]</span><br><span class="line">                watch：监听文件改变</span><br><span class="line">                    通过命令:vite build --watch</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="attr">ignored</span>: [<span class="string">&#x27;!**/node_modules/your-package-name/**&#x27;</span>]	默认会忽略对 .<span class="property">git</span>/ 和 node_modules/ 目录的监听,</span><br><span class="line">                        如果需要对 node_modules/ 内的包进行监听，可以为 server.<span class="property">watch</span>.<span class="property">ignored</span> 赋值一个取反的 glob 模式</span><br><span class="line">                        其他选项：使用的是rollup的选项配置:<span class="attr">https</span>:<span class="comment">//rollupjs.org/guide/en/#watch-options</span></span><br><span class="line">                    &#125;			</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// optimizeDeps依赖优化相关</span></span><br><span class="line">        optimizeDeps：&#123;</span><br><span class="line">                entries：依赖入口点</span><br><span class="line">                        默认情况下，<span class="title class_">Vite</span> 会抓取你的 index.<span class="property">html</span> 来检测需要预构建的依赖项</span><br><span class="line">                        如果指定了 build.<span class="property">rollupOptions</span>.<span class="property">input</span>，<span class="title class_">Vite</span> 将转而去抓取这些入口点</span><br><span class="line">                        string | string[]：指定自定义条目，该值需要遵循 fast-glob 模式</span><br><span class="line">        exclude：[<span class="string">&#x27;your-package-name&#x27;</span>] 被watch中手动设置监听的包必须被排除在优化之外，以便它能出现在依赖关系图中并触发热更新</span><br><span class="line">        include：默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。</span><br><span class="line">                []</span><br><span class="line">                应用场景：一些第三方插件中的依赖不是node_modules中的并且也不是es <span class="variable language_">module</span>的格式</span><br><span class="line">        esbuildOptions：在部署扫描和优化过程中传递给 esbuild 的选项。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// build构建相关</span></span><br><span class="line">        build：&#123;</span><br><span class="line">            target：设置最终构建的浏览器兼容目标</span><br><span class="line">                    默认：<span class="string">&#x27;modules&#x27;</span>:指支持原生 <span class="variable constant_">ES</span> 模块的浏览器。</span><br><span class="line">                    <span class="string">&quot;esnext&quot;</span> :即假设有原生动态导入支持，并且将会转译得尽可能小：</span><br><span class="line">                            如果 build.<span class="property">minify</span> 选项为 <span class="string">&#x27;terser&#x27;</span>， <span class="string">&#x27;esnext&#x27;</span> 将会强制降级为 <span class="string">&#x27;es2019&#x27;</span>。</span><br><span class="line">                            其他情况下将完全不会执行转译。</span><br><span class="line">                    <span class="string">&#x27;es2015&#x27;</span>：自定义目标也可以是一个 <span class="variable constant_">ES</span> 版本</span><br><span class="line">                    [<span class="string">&quot;chrome58&quot;</span>,...]：一个浏览器版本或是多个目标组成的一个数组</span><br><span class="line">            polyfillModulePreload：用于决定是否自动注入 <span class="variable language_">module</span> preload 的 polyfill.</span><br><span class="line">                    <span class="literal">true</span>：此 polyfill 会被自动注入到每个 index.<span class="property">html</span> 入口的 proxy 模块中</span><br><span class="line">            outDir：指定输出路径（相对于 项目根目录).</span><br><span class="line">                    默认：dist</span><br><span class="line">            assetsDir：指定生成静态资源的存放路径（相对于 build.<span class="property">outDir</span>）</span><br><span class="line">                    默认：assets</span><br><span class="line">            assetsInlineLimit：小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。</span><br><span class="line">                    默认：<span class="number">4096</span> (4kb)</span><br><span class="line">                    设置为 <span class="number">0</span> 可以完全禁用此项。</span><br><span class="line">            cssCodeSplit：css代码分割</span><br><span class="line">                    默认：<span class="literal">true</span>，在异步 chunk 中导入的 <span class="variable constant_">CSS</span> 将内联到异步 chunk 本身，并在其被加载时插入。</span><br><span class="line">                    <span class="literal">false</span>：整个项目中的所有 <span class="variable constant_">CSS</span> 将被提取到一个 <span class="variable constant_">CSS</span> 文件中</span><br><span class="line">            cssTarget：允许用户为 <span class="variable constant_">CSS</span> 的压缩设置一个不同的浏览器 target</span><br><span class="line">                    默认值和配置与target一致</span><br><span class="line">            sourcemap：构建后是否生成 source map 文件</span><br><span class="line">                    默认：<span class="literal">false</span></span><br><span class="line">                    <span class="literal">true</span>：创建一个独立的 source map 文件</span><br><span class="line">                    <span class="string">&#x27;inline&#x27;</span>：source map 将作为一个 data <span class="variable constant_">URI</span> 附加在输出文件中</span><br><span class="line">                    <span class="string">&#x27;hidden&#x27;</span>：与 <span class="string">&#x27;true&#x27;</span> 相似，只是 bundle 文件中相应的注释将不被保留</span><br><span class="line">            rollupOptions：自定义的 <span class="title class_">Rollup</span> 打包配置，并将与 <span class="title class_">Vite</span> 的内部 <span class="title class_">Rollup</span> 选项合并</span><br><span class="line">                    <span class="attr">https</span>:<span class="comment">//rollupjs.org/guide/en/#big-list-of-options</span></span><br><span class="line">            commonjsOptions：传递给 @rollup/plugin-commonjs 插件的选项。</span><br><span class="line">            dynamicImportVarsOptions：传递给 @rollup/plugin-dynamic-<span class="keyword">import</span>-vars 的选项。</span><br><span class="line">            lib：打包库</span><br><span class="line">                    &#123; </span><br><span class="line">                            <span class="attr">entry</span>: string, </span><br><span class="line">                            name?: string, 	暴露的全局变量</span><br><span class="line">                            formats?: (<span class="string">&#x27;es&#x27;</span> | <span class="string">&#x27;cjs&#x27;</span> | <span class="string">&#x27;umd&#x27;</span> | <span class="string">&#x27;iife&#x27;</span>)[], 	包含 <span class="string">&#x27;umd&#x27;</span> 或 <span class="string">&#x27;iife&#x27;</span> 时是必须的。默认 formats 是 [<span class="string">&#x27;es&#x27;</span>, <span class="string">&#x27;umd&#x27;</span>]</span><br><span class="line">                            fileName?: string | (<span class="function">(<span class="params">format: ModuleFormat</span>) =&gt;</span> string) 	输出的包文件名</span><br><span class="line">                                    默认 fileName 是 package.<span class="property">json</span> 的 name 选项</span><br><span class="line">                    &#125;</span><br><span class="line">            manifest：包含了没有被 hash 过的资源文件名和 hash 后版本的映射。</span><br><span class="line">                    <span class="literal">true</span>：包含了没有被 hash 过的资源文件名和 hash 后版本的映射。</span><br><span class="line">                    字符串：作为 manifest 文件的名字</span><br><span class="line">            ssrManifest：生成 <span class="variable constant_">SSR</span> 的 manifest 文件，以确定生产中的样式链接与资产预加载指令</span><br><span class="line">                    配置和manifest一致</span><br><span class="line">            ssr：生成面向 <span class="variable constant_">SSR</span> 的构建</span><br><span class="line">                    默认：<span class="literal">undefined</span></span><br><span class="line">                    字符串：用于直接定义 <span class="variable constant_">SSR</span> 的入口</span><br><span class="line">                    <span class="literal">true</span>：需要通过设置 rollupOptions.<span class="property">input</span> 来指定 <span class="variable constant_">SSR</span> 的入口</span><br><span class="line">            minify：压缩相关</span><br><span class="line">                    默认：<span class="string">&#x27;esbuild&#x27;</span></span><br><span class="line">                    <span class="literal">false</span>：禁用</span><br><span class="line">                    <span class="string">&#x27;terser&#x27;</span></span><br><span class="line">                    在lib模式下使用 <span class="string">&#x27;es&#x27;</span> 时，build.<span class="property">minify</span> 选项将失效</span><br><span class="line">            terserOptions：传递给 <span class="title class_">Terser</span> 的更多 minify 选项。</span><br><span class="line">            write：磁盘写入相关</span><br><span class="line">                    默认：<span class="literal">true</span></span><br><span class="line">                    <span class="literal">false</span>：禁用将构建后的文件写入磁盘</span><br><span class="line">            emptyOutDir：关闭警告</span><br><span class="line">                    默认：若 outDir 在 root 目录下，则为 <span class="literal">true</span>，<span class="title class_">Vite</span> 会在构建时清空该目录</span><br><span class="line">                    outDir在根目录之外：会抛出一个警告避免意外删除掉重要的文件。可以设置该选项来关闭这个警告</span><br><span class="line">                    通过命令： --emptyOutDir 来使用</span><br><span class="line">            reportCompressedSize：启用/禁用 gzip 压缩大小报告。压缩大型输出文件可能会很慢，因此禁用该功能可能会提高大型项目的构建性能。</span><br><span class="line">                    默认：<span class="literal">true</span></span><br><span class="line">            chunkSizeWarningLimit：chunk 大小警告的限制（以 kbs 为单位）</span><br><span class="line">                    默认：<span class="number">500</span></span><br><span class="line">            watch：构建监听器</span><br><span class="line">                    默认：<span class="literal">null</span></span><br><span class="line">                    &#123;&#125;：启用 rollup 的监听器。在涉及只用在构建时的插件时和集成开发流程中很常用。</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构建预览preview相关</span></span><br><span class="line">        preview：&#123;</span><br><span class="line">                host：为开发服务器指定 ip 地址，默认取server.<span class="property">host</span></span><br><span class="line">                        <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> 或 <span class="literal">true</span>：监听所有地址，包括局域网和公共地址。</span><br><span class="line">                        通过命令：--host <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> 或 --host</span><br><span class="line">                port：指定开发服务器端口</span><br><span class="line">                        默认：<span class="number">4173</span></span><br><span class="line">                strictPort：默认取server.<span class="property">strictPort</span></span><br><span class="line">                https：默认取server.<span class="property">https</span></span><br><span class="line">                open：默认取server.<span class="property">openy</span></span><br><span class="line">                proxy：默认取server.<span class="property">proxy</span></span><br><span class="line">                cors：默认取server.<span class="property">cors</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// SSR相关</span></span><br><span class="line">        ssr：&#123;</span><br><span class="line">                external：为 <span class="variable constant_">SSR</span> 强制外部化的依赖。</span><br><span class="line">                        []</span><br><span class="line">                noExternal：防止被 <span class="variable constant_">SSR</span> 外部化依赖项</span><br><span class="line">                        string | <span class="title class_">RegExp</span> | (string | <span class="title class_">RegExp</span>)[] </span><br><span class="line">                        <span class="literal">true</span>：将没有依赖被外部化</span><br><span class="line">                target：<span class="variable constant_">SSR</span> 服务器的构建目标。</span><br><span class="line">                        默认：<span class="string">&#x27;node&#x27;</span></span><br><span class="line">                        <span class="string">&#x27;webworker&#x27;</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Worker相关</span></span><br><span class="line">        worker：&#123;</span><br><span class="line">                format：worker bundle 的输出类型。</span><br><span class="line">                        默认：<span class="string">&#x27;iife&#x27;</span></span><br><span class="line">                        <span class="string">&#x27;es&#x27;</span></span><br><span class="line">                plugins：适用于 worker bundle 的 <span class="title class_">Vite</span> 插件。</span><br><span class="line">                        []</span><br><span class="line">                <span class="attr">rollupOptions</span>:用于构建 worker bundle 的 <span class="title class_">Rollup</span> 配置项</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="其实配置详解大家都差不多-目的也是相同的"><a href="#其实配置详解大家都差不多-目的也是相同的" class="headerlink" title="其实配置详解大家都差不多, 目的也是相同的"></a>其实配置详解大家都差不多, 目的也是相同的</h3><p>Vite 相比于 Webpack 而言，没有打包的过程，而是直接启动了一个开发服务器 devServer。Vite 劫持浏览器的 HTTP 请求，在后端进行相应的处理将项目中使用的文件通过简单的分解与整合，然后再返回给浏览器(整个过程没有对文件进行打包编译)。所以编译速度很快。</p>
+<p>Vite 底层使用 Esbuild 实现对.ts、jsx、.js 代码文件的转化，所以先看下什么是 es-build。 Esbuild 是一个 JavaScript&#96;&#96; Bundler 打包和压缩工具，它提供了与 Webpack、Rollup 等工具相似的资源打包能力。可以将 JavaScript 和 TypeScript 代码打包分发在网页上运行。但其打包速度却是其他工具的 10 ～ 100 倍。</p>
+<p>生产阶段使用Rollup打包。</p>
+<p>Vite 其核心原理是利用浏览器现在已经支持 ES6 的 import,碰见 import 就会发送一个 HTTP 请求去加载文件，Vite 启动一个 koa 服务器拦截这些请求，并在后端进行相应的处理将项目中使用的文件通过简单的分解与整合，然后再以 ESM 格式返回返回给浏览器。Vite 整个过程中没有对文件进行打包编译，做到了真正的按需加载，所以其运行速度比原始的 webpack 开发编译速度快出许多！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://bobotouo.github.io/myBlog">波波头</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://bobotouo.github.io/myBlog/2022/10/12/front-package/">https://bobotouo.github.io/myBlog/2022/10/12/front-package/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://bobotouo.github.io/myBlog" target="_blank">阿波blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/myBlog/images/avatar.gif" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/myBlog/2022/11/01/black-MacOS/" title="不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]</div></div></a></div><div class="next-post pull-right"><a href="/myBlog/2022/03/12/zzbds/" title="正则表达式基础, 以及常见正则"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">正则表达式基础, 以及常见正则</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myBlog/images/avatar.gif" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">波波头</div><div class="author-info__description">寂寞才说爱,为何你要那么坏</div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/myBlog/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/myBlog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/username"><i class="fab fa-github"></i><span>leave msg</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="tencent://message/?uin=676610503" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/bobotouo" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:676610503@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #hdhfbb;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">难受,香菇</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9E%84%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">什么是构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Webpack"><span class="toc-number">2.</span> <span class="toc-text">Webpack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Entry"><span class="toc-number">2.0.1.</span> <span class="toc-text">Entry</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Output"><span class="toc-number">2.0.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Loader"><span class="toc-number">2.0.3.</span> <span class="toc-text">Loader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Plugins"><span class="toc-number">2.0.4.</span> <span class="toc-text">Plugins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mode"><span class="toc-number">2.0.5.</span> <span class="toc-text">mode</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loader%E5%92%8CPlugin%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.1.</span> <span class="toc-text">Loader和Plugin的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rollup"><span class="toc-number">3.</span> <span class="toc-text">Rollup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vite"><span class="toc-number">4.</span> <span class="toc-text">vite</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%9E%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3%E5%A4%A7%E5%AE%B6%E9%83%BD%E5%B7%AE%E4%B8%8D%E5%A4%9A-%E7%9B%AE%E7%9A%84%E4%B9%9F%E6%98%AF%E7%9B%B8%E5%90%8C%E7%9A%84"><span class="toc-number">4.1.</span> <span class="toc-text">其实配置详解大家都差不多, 目的也是相同的</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/12/11/tools-collection/" title="常用工具收藏">常用工具收藏</a><time datetime="2022-12-11T02:05:23.000Z" title="发表于 2022-12-11 10:05:23">2022-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/11/01/black-MacOS/" title="不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]">不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]</a><time datetime="2022-11-01T05:23:20.000Z" title="发表于 2022-11-01 13:23:20">2022-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/10/12/front-package/" title="前端常见构建工具(webpack、rollup、vite)">前端常见构建工具(webpack、rollup、vite)</a><time datetime="2022-10-12T02:22:04.000Z" title="发表于 2022-10-12 10:22:04">2022-10-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/03/12/zzbds/" title="正则表达式基础, 以及常见正则">正则表达式基础, 以及常见正则</a><time datetime="2022-03-12T07:20:04.000Z" title="发表于 2022-03-12 15:20:04">2022-03-12</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(0,0,0,0)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 波波头</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/myBlog/js/utils.js?v=4.13.0"></script><script src="/myBlog/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://heartfelt-clafoutis-ff7eb7.netlify.app/.netlify/functions/comment',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.css')
+      const { init } = await import('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = content => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom && ($dom.innerHTML= result)
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = async () => {
+    try {
+      const res = await fetch('https://heartfelt-clafoutis-ff7eb7.netlify.app/.netlify/functions/comment/api/comment?type=recent&count=5', { method: 'GET' })
+      const result = await res.json()
+      const walineArray = result.data.map(e => {
+        return {
+          'content': changeContent(e.comment),
+          'avatar': e.avatar,
+          'nick': e.nick,
+          'url': e.url + '#' + e.objectId,
+          'date': e.time || e.insertedAt
+        }
+      })
+      saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
+      generateHtml(walineArray)
+    } catch (err) {
+      console.error(err)
+      const $dom = document.querySelector('#card-newest-comments .aside-list')
+      $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+    }
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('waline-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="2084366052" data-server="netease" data-type="song" data-fixed="true" data-lrc-type="1" data-autoplay="true" data-preload="auto" id="global-player"> </div><script src="/myBlog/config/js/global.js"></script><script id="canvas_nest" defer="defer" color="#eee" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/myBlog/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -9,13 +9,13 @@
 <meta property="article:author" content="波波头">
 <meta property="article:tag" content="爱好,收集,记录,旅游,游戏,技术,发牢骚,">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://bobotouo.github.io/myBlog/images/avatar.gif"><link rel="shortcut icon" href="/myBlog/images/favicon32.ico"><link rel="canonical" href="https://bobotouo.github.io/myBlog/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="https://bobotouo.github.io/myBlog/images/avatar.gif"><link rel="shortcut icon" href="/myBlog/images/favicon32.ico"><link rel="canonical" href="https://bobotouo.github.io/myBlog/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/myBlog/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/myBlog/',
   algolia: undefined,
   localSearch: undefined,
   translate: undefined,
   noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
     success: '复制成功',
     error: '复制错误',
@@ -35,12 +35,10 @@
   },
   copyright: undefined,
   lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"top-right"},
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"top-right"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
   islazyload: false,
@@ -56,85 +54,78 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-03-01 15:14:09'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+  postUpdate: '2024-12-04 16:50:36'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
         }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      win.activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
@@ -142,9 +133,9 @@
       }
       const t = saveToLocal.get('theme')
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -154,13 +145,13 @@
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/myBlog/config/css/global.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/bb/showbb_in_index.css"><script src="/myBlog/config/js/waterfall.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.min.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myBlog/images/avatar.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/myBlog/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/myBlog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fa-solid fa-calendar-days"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fa-solid fa-tags"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-face-grin-tongue-wink"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/myBlog/Gallery/"><i class="fa-fw fas fa-images"></i><span> Photos</span></a></li><li><a class="site-page child" href="/myBlog/movies/"><i class="fa-fw fas fa-video"></i><span> Movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/myBlog/messageboard/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/about/"><i class="fa-fw fa-solid fa-umbrella"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://img-baofun.zhhainiao.com/fs/bfec7f6af878a00db3eca7706ae983aa.jpg')"><nav id="nav"><span id="blog-info"><a href="/myBlog/" title="阿波blog"><img class="site-icon" src="/myBlog/images/ikun.png"/><span class="site-name">阿波blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fa-solid fa-calendar-days"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fa-solid fa-tags"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-face-grin-tongue-wink"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/myBlog/Gallery/"><i class="fa-fw fas fa-images"></i><span> Photos</span></a></li><li><a class="site-page child" href="/myBlog/movies/"><i class="fa-fw fas fa-video"></i><span> Movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/myBlog/messageboard/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/about/"><i class="fa-fw fa-solid fa-umbrella"></i><span> 关于</span></a></div></div></div><div id="nav-right"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">阿波blog</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="tencent://message/?uin=676610503" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/bobotouo" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:676610503@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #hdhfbb;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div id="zbuz"><div class="author-content author-content-item essayPage single essayVideo"><div class="card-content"><div class="author-content-item-tips"> <span class="author-top-tips">人生苦短, 及时行乐</span></div></div></div><div id="bber"><section class="timeline page-1"><ul class="list show" id="waterfall"><li class="item"><div class="bber-content"><p class="datacont">如何搞钱,带带老弟,🙏🏻</p></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2023/10/12 12:07</time></div></div><a class="bber-reply" onclick="jumpToComment('如何搞钱,带带老弟,🙏🏻')"><i class="fa-solid fa-message"></i></a></div></li><li class="item"><div class="bber-content"><p class="datacont">要是每天能躺就好了<div class="bber-images"><div class="bber-content-img"><a class="fancybox" target="_blank" rel="noopener" href="https://z1.ax1x.com/2023/10/12/piScOCn.jpg" data-fancybox="gallery" data-caption><img class="bber-content-image-self entered loading" src="https://z1.ax1x.com/2023/10/12/piScOCn.jpg" data-ll-status="loading"></a></div><div class="bber-content-img"><a class="fancybox" target="_blank" rel="noopener" href="https://z1.ax1x.com/2023/10/12/piSgfIJ.jpg" data-fancybox="gallery" data-caption><img class="bber-content-image-self entered loading" src="https://z1.ax1x.com/2023/10/12/piSgfIJ.jpg" data-ll-status="loading"></a></div></div></p></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2023/05/03 15:07</time></div></div><a class="bber-reply" onclick="jumpToComment('要是每天能躺就好了')"><i class="fa-solid fa-message"></i></a></div></li><li class="item"><div class="bber-content"><p class="datacont">林克你!😋<div class="bber-images"><div class="bber-content-img"><a class="fancybox" target="_blank" rel="noopener" href="https://z1.ax1x.com/2023/10/12/piSgA81.jpg" data-fancybox="gallery" data-caption><img class="bber-content-image-self entered loading" src="https://z1.ax1x.com/2023/10/12/piSgA81.jpg" data-ll-status="loading"></a></div></div></p></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2023/04/13 20:33</time></div></div><a class="bber-reply" onclick="jumpToComment('林克你!😋')"><i class="fa-solid fa-message"></i></a></div></li><li class="item"><div class="bber-content"><p class="datacont">life is meaningless</p></div><div class="bber-music"><div class="aplayer" data-id="1403318151" data-server="netease" data-type="song"></div></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2022/02/14 19:07</time></div></div><a class="bber-reply" onclick="jumpToComment('life is meaningless')"><i class="fa-solid fa-message"></i></a></div></li></ul></section></div><div id="bber-tips" style="color: var(--bywind-secondtext);">- 只展示最近10条短文 -</div></div><script>(()=>{ 
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/myBlog/config/css/global.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/bb/showbb_in_index.css"><script src="/myBlog/config/js/waterfall.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.min.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/myBlog/images/avatar.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/myBlog/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/myBlog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fa-solid fa-calendar-days"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fa-solid fa-tags"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-face-grin-tongue-wink"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/myBlog/Gallery/"><i class="fa-fw fas fa-images"></i><span> Photos</span></a></li><li><a class="site-page child" href="/myBlog/movies/"><i class="fa-fw fas fa-video"></i><span> Movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/myBlog/messageboard/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/about/"><i class="fa-fw fa-solid fa-umbrella"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://img-baofun.zhhainiao.com/fs/bfec7f6af878a00db3eca7706ae983aa.jpg')"><nav id="nav"><span id="blog-info"><a href="/myBlog/" title="阿波blog"><img class="site-icon" src="/myBlog/images/ikun.png"/><span class="site-name">阿波blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/myBlog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/archives/"><i class="fa-fw fa-solid fa-calendar-days"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/categories/"><i class="fa-fw fa-solid fa-tags"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-face-grin-tongue-wink"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/myBlog/Gallery/"><i class="fa-fw fas fa-images"></i><span> Photos</span></a></li><li><a class="site-page child" href="/myBlog/movies/"><i class="fa-fw fas fa-video"></i><span> Movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/myBlog/messageboard/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/myBlog/about/"><i class="fa-fw fa-solid fa-umbrella"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">阿波blog</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="tencent://message/?uin=676610503" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/bobotouo" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:676610503@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #hdhfbb;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div id="zbuz"><div class="author-content author-content-item essayPage single essayVideo"><div class="card-content"><div class="author-content-item-tips"> <span class="author-top-tips">人生苦短, 及时行乐</span></div></div></div><div id="bber"><section class="timeline page-1"><ul class="list show" id="waterfall"><li class="item"><div class="bber-content"><p class="datacont">如何搞钱,带带老弟,🙏🏻</p></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2023/10/12 12:07</time></div></div><a class="bber-reply" onclick="jumpToComment('如何搞钱,带带老弟,🙏🏻')"><i class="fa-solid fa-message"></i></a></div></li><li class="item"><div class="bber-content"><p class="datacont">要是每天能躺就好了<div class="bber-images"><div class="bber-content-img"><a class="fancybox" target="_blank" rel="noopener" href="https://z1.ax1x.com/2023/10/12/piScOCn.jpg" data-fancybox="gallery" data-caption><img class="bber-content-image-self entered loading" src="https://z1.ax1x.com/2023/10/12/piScOCn.jpg" data-ll-status="loading"></a></div><div class="bber-content-img"><a class="fancybox" target="_blank" rel="noopener" href="https://z1.ax1x.com/2023/10/12/piSgfIJ.jpg" data-fancybox="gallery" data-caption><img class="bber-content-image-self entered loading" src="https://z1.ax1x.com/2023/10/12/piSgfIJ.jpg" data-ll-status="loading"></a></div></div></p></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2023/05/03 15:07</time></div></div><a class="bber-reply" onclick="jumpToComment('要是每天能躺就好了')"><i class="fa-solid fa-message"></i></a></div></li><li class="item"><div class="bber-content"><p class="datacont">林克你!😋<div class="bber-images"><div class="bber-content-img"><a class="fancybox" target="_blank" rel="noopener" href="https://z1.ax1x.com/2023/10/12/piSgA81.jpg" data-fancybox="gallery" data-caption><img class="bber-content-image-self entered loading" src="https://z1.ax1x.com/2023/10/12/piSgA81.jpg" data-ll-status="loading"></a></div></div></p></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2023/04/13 20:33</time></div></div><a class="bber-reply" onclick="jumpToComment('林克你!😋')"><i class="fa-solid fa-message"></i></a></div></li><li class="item"><div class="bber-content"><p class="datacont">life is meaningless</p></div><div class="bber-music"><div class="aplayer" data-id="1403318151" data-server="netease" data-type="song"></div></div><hr><div class="bber-bottom"><div class="bber-info"><div class="bber-info-time"><i class="fa-solid fa-calendar-days"></i><time class="datatime">2022/02/14 19:07</time></div></div><a class="bber-reply" onclick="jumpToComment('life is meaningless')"><i class="fa-solid fa-message"></i></a></div></li></ul></section></div><div id="bber-tips" style="color: var(--bywind-secondtext);">- 只展示最近10条短文 -</div></div><script>(()=>{ 
           if(document.querySelector('#waterfall')){
                   setTimeout(() => {
       waterfall('#waterfall') 
@@ -218,7 +209,15 @@ svg ...</div></div></div><div class="recent-post-item"><div class="recent-post-i
 再到现在的 OpenCore
 
 一路断断续续, 走过来. 真是见证了整个黑苹果的发展. 不过感觉也快接近尾声了, 现在苹果都不用x86的intel CPU以及AMD的显卡了, 以后可能成为绝唱了.
-安装我现在工作用的笔记本,还是多年以前的Hp-zhan66八代低压U,这么多年还在服役, 现在用最新Ventura已经开始卡了,一方面可能是CPU确实拉跨, 另一方, 也是跟苹果系统现在负优化有关喽 🐶头保命. 屋里的台式机, 倒是更新换代过, 从7代到10代. 显卡也换过好几张, 从gtx1060 到 rx588 再到 rtx2060s, 当年还是有NVIDIA的web驱动的.可惜随着MacOS的更新 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/myBlog/2022/03/12/zzbds/" title="正则表达式基础, 以及常见正则">正则表达式基础, 以及常见正则</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-03-12T07:20:04.000Z" title="发表于 2022-03-12 15:20:04">2022-03-12</time></span></div><div class="content">基础符号| ：满足左右两边的表达式
+安装我现在工作用的笔记本,还是多年以前的Hp-zhan66八代低压U,这么多年还在服役, 现在用最新Ventura已经开始卡了,一方面可能是CPU确实拉跨, 另一方, 也是跟苹果系统现在负优化有关喽 🐶头保命. 屋里的台式机, 倒是更新换代过, 从7代到10代. 显卡也换过好几张, 从gtx1060 到 rx588 再到 rtx2060s, 当年还是有NVIDIA的web驱动的.可惜随着MacOS的更新 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/myBlog/2022/10/12/front-package/" title="前端常见构建工具(webpack、rollup、vite)">前端常见构建工具(webpack、rollup、vite)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-10-12T02:22:04.000Z" title="发表于 2022-10-12 10:22:04">2022-10-12</time></span></div><div class="content">什么是构建
+构建工具，最终的目标都是转化开发环境的代码为生产环境中可用的代码。在不同的前端项目中使用的技术栈是不一样的。不同的框架、不同的样式处理方案等，为了生产出生产环境可用的 JS、CSS，构建工具实现了诸如：代码转换、代码压缩、tree shaking、code spliting 等。
+Webpack 五个核心概念
+Entry 指定 webpack 打包的入口
+Output 指定 webpack 打包资源的存放位置
+Loader 让 webpack 能够处理非 JavaScript 文件,  用于对模块的代码转换，如将 Typescript 转为 Javascript、将 less、sass 转为 css、将.vue、.tsx 等文件转为 js、css 等。
+Plugins可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩， 一直到重新定义环境中的变量等, 解决 loader 无法实现的其他事
+mode指定 webpack 当前的构建环境类型。设置mode可以自动触发webpack内置的函数，达到优化的效果
+Loader和Plugin的区别Loader 模块导出一个运行 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/myBlog/2022/03/12/zzbds/" title="正则表达式基础, 以及常见正则">正则表达式基础, 以及常见正则</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-03-12T07:20:04.000Z" title="发表于 2022-03-12 15:20:04">2022-03-12</time></span></div><div class="content">基础符号| ：满足左右两边的表达式
 []：原子表，只能匹配一个，存在于内，如：[a-z]在a-z的写字母中、[124-5]在1、2、4、-、5中
 ()：原子组，存在于内，如：(12|34)在12、34中；
 ^ $：起始 结束，常配合完整验证(因为正常情况下匹配不到就停止)；单独内部使用^为非，如：[^\d]表示除了数值
@@ -232,10 +231,10 @@ svg ...</div></div></div><div class="recent-post-item"><div class="recent-post-i
 ?: 有或者没有
 .：除换行外任意字符
 i g m u：大小写不敏感 全局 多行匹配 特殊处理
-基础方法match(),将字符串根据正则拆分为数组，不会改变字符串本身var str = &#x27;hsakjd55ad4asda645&#x27;console.log(str.match(/\d/g))//(6) [&quot;5&quot;, &quot;5&quot;, &quot;4&quot;, & ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myBlog/images/avatar.gif" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">波波头</div><div class="author-info__description">寂寞才说爱,为何你要那么坏</div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/myBlog/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/myBlog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/username"><i class="fab fa-github"></i><span>leave msg</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="tencent://message/?uin=676610503" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/bobotouo" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:676610503@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #hdhfbb;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">难受,香菇</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/12/11/tools-collection/" title="常用工具收藏">常用工具收藏</a><time datetime="2022-12-11T02:05:23.000Z" title="发表于 2022-12-11 10:05:23">2022-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/11/01/black-MacOS/" title="不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]">不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]</a><time datetime="2022-11-01T05:23:20.000Z" title="发表于 2022-11-01 13:23:20">2022-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/03/12/zzbds/" title="正则表达式基础, 以及常见正则">正则表达式基础, 以及常见正则</a><time datetime="2022-03-12T07:20:04.000Z" title="发表于 2022-03-12 15:20:04">2022-03-12</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/11/"><span class="card-archive-list-date">十一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">3</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-03-01T07:14:09.851Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(0,0,0,0)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 波波头</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/myBlog/js/utils.js"></script><script src="/myBlog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+基础方法match(),将字符串根据正则拆分为数组，不会改变字符串本身var str = &#x27;hsakjd55ad4asda645&#x27;console.log(str.match(/\d/g))//(6) [&quot;5&quot;, &quot;5&quot;, &quot;4&quot;, & ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/myBlog/images/avatar.gif" onerror="this.onerror=null;this.src='/myBlog/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">波波头</div><div class="author-info__description">寂寞才说爱,为何你要那么坏</div></div><div class="card-info-data site-data is-center"><a href="/myBlog/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/myBlog/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/myBlog/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/username"><i class="fab fa-github"></i><span>leave msg</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="tencent://message/?uin=676610503" target="_blank" title="QQ"><i class="fab fa-qq" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://github.com/bobotouo" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:676610503@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #hdhfbb;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">难受,香菇</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/12/11/tools-collection/" title="常用工具收藏">常用工具收藏</a><time datetime="2022-12-11T02:05:23.000Z" title="发表于 2022-12-11 10:05:23">2022-12-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/11/01/black-MacOS/" title="不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]">不是白果,买不起(确实买不起😭),而是黑苹果更具性价比[旺柴]</a><time datetime="2022-11-01T05:23:20.000Z" title="发表于 2022-11-01 13:23:20">2022-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/10/12/front-package/" title="前端常见构建工具(webpack、rollup、vite)">前端常见构建工具(webpack、rollup、vite)</a><time datetime="2022-10-12T02:22:04.000Z" title="发表于 2022-10-12 10:22:04">2022-10-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/myBlog/2022/03/12/zzbds/" title="正则表达式基础, 以及常见正则">正则表达式基础, 以及常见正则</a><time datetime="2022-03-12T07:20:04.000Z" title="发表于 2022-03-12 15:20:04">2022-03-12</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/11/"><span class="card-archive-list-date">十一月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/10/"><span class="card-archive-list-date">十月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/myBlog/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">4</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-12-04T08:50:35.942Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(0,0,0,0)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 波波头</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/myBlog/js/utils.js?v=4.13.0"></script><script src="/myBlog/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
   if (typeof pangu === 'object') pangu.autoSpacingPage()
   else {
-    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
       .then(() => {
         pangu.autoSpacingPage()
       })
@@ -265,7 +264,7 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+        getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
       }
     } else {
       subtitleType()
@@ -274,9 +273,9 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
 }
 </script><script>function subtitleType () {
   if (true) {
-    typedJSFn.init(["你看那个人,像不像一条狗"])
+    typedJSFn.init(["安得广夏千万间,大庇天下寒士俱欢颜"])
   } else {
-    document.getElementById("subtitle").textContent = "你看那个人,像不像一条狗"
+    document.getElementById("subtitle").textContent = "安得广夏千万间,大庇天下寒士俱欢颜"
   }
 }
 typedJSFn.run(subtitleType)</script></div><script>window.addEventListener('load', () => {
@@ -316,7 +315,7 @@ typedJSFn.run(subtitleType)</script></div><script>window.addEventListener('load'
     }
 
     let $dom = document.querySelector('#card-newest-comments .aside-list')
-    $dom.innerHTML= result
+    $dom && ($dom.innerHTML= result)
     window.lazyLoadInstance && window.lazyLoadInstance.update()
     window.pjax && window.pjax.refresh($dom)
   }
@@ -356,11 +355,11 @@ typedJSFn.run(subtitleType)</script></div><script>window.addEventListener('load'
 
   newestCommentInit()
   document.addEventListener('pjax:complete', newestCommentInit)
-})</script><div class="aplayer no-destroy" data-id="2084366052" data-server="netease" data-type="song" data-fixed="true" data-lrc-type="1" data-autoplay="true" data-preload="auto"> </div><script src="/myBlog/config/js/global.js"></script><script id="canvas_nest" defer="defer" color="#eee" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+})</script><div class="aplayer no-destroy" data-id="2084366052" data-server="netease" data-type="song" data-fixed="true" data-lrc-type="1" data-autoplay="true" data-preload="auto" id="global-player"> </div><script src="/myBlog/config/js/global.js"></script><script id="canvas_nest" defer="defer" color="#eee" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = false;
 POWERMODE.mobile = false;
 document.body.addEventListener('input', POWERMODE);
-</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 
 var pjax = new Pjax({
   elements: 'a:not([target="_blank"])',
@@ -372,11 +371,11 @@ var pjax = new Pjax({
 
 document.addEventListener('pjax:send', function () {
 
-  // removeEventListener scroll 
-  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
-  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
 
-  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  document.getElementById('rightside').classList.remove('rightside-show')
   
   if (window.aplayers) {
     for (let i = 0; i < window.aplayers.length; i++) {
@@ -422,8 +421,8 @@ document.addEventListener('pjax:complete', function () {
   typeof Prism === 'object' && Prism.highlightAll()
 })
 
-document.addEventListener('pjax:error', (e) => {
+document.addEventListener('pjax:error', e => {
   if (e.request.status === 404) {
-    pjax.loadUrl('/404.html')
+    pjax.loadUrl('/myBlog/404.html')
   }
 })</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

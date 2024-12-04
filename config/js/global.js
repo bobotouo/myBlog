@@ -5,7 +5,12 @@ function once() {
     if (flag) {
         console.log("我被调用, 只调用一次");
         flag = false;
-        // window.aplayers[0].play()
+        const playerEl = window.aplayers[1]
+        console.log(playerEl)
+        debugger
+         if(playerEl && playerEl.paused){
+            playerEl.play()
+         }
         // console.log(window.aplayers)
         // window.aplayers[0].lrc.hide()
     } else {
@@ -30,6 +35,15 @@ document.addEventListener('touchend',function(){
         once()
     }
 })
+
+// document
+//       .querySelector('body')
+//       .onscroll = ()=>{
+//         if (window.aplayers.length>0) {
+//             // console.log(window.aplayers)
+//             once()
+//         }
+//       } // 监听（绑定）滚轮滚动事件
 
 if (document.querySelector('#bber-talk')) {
     var swiper = new Swiper('.swiper-container', {
